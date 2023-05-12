@@ -1,6 +1,8 @@
 $PackageName = "DesktopInfo"
 $Description = "Application to show computer name and relevant support info on Desktop."
 
+$url = "https://github.com/asasin114/DesktopInfo/raw/main/"
+$output = "C:\Program Files\4net\EndpointManager\Program\DesktopInfo"
 $Path_4netIntune = "$Env:Programfiles\4net\EndpointManager"
 Start-Transcript -Path "$Path_4netIntune\Log\$PackageName-install.log" -Force
 
@@ -14,13 +16,10 @@ taskkill /IM DesktopInfo64.exe /F
 # Initial Setup and Variables
 ###########################################################################################
 
-$scriptSavePath = "C:\Program Files\4net\EndpointManager\Program\DesktopInfo"
-$scriptSavePathName = "DesktopInfo.ps1"
-$scriptPath = "$scriptSavePath\$scriptSavePathName"
 New-item -itemtype directory -force -path "$Path_4netIntune\Program\DesktopInfo"
-Copy-item -path ".\DesktopInfo64.exe" -destination "$Path_4netIntune\Program\DesktopInfo\DesktopInfo64.exe"
-Copy-item -path ".\hostname.ini" -destination "$Path_4netIntune\Program\DesktopInfo\hostname.ini"
-Copy-item -path ".\DesktopInfo.ps1" -destination $scriptPath
+Invoke-WebRequest -Uri "$url/DesktopInfo64.exe" -OutFile "$output\DesktopInfo64.exe"
+Invoke-WebRequest -Uri "$url/hostname.ini" -OutFile "$output\hostname.ini"
+Invoke-WebRequest -Uri "$url/DesktopInfo64.ps1" -OutFile "$output\DesktopInfo.ps1"
 
 ###########################################################################################
 # Create dummy vbscript to hide PowerShell Window popping up at logon
