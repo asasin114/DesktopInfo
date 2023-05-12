@@ -16,6 +16,9 @@ taskkill /IM DesktopInfo64.exe /F
 # Initial Setup and Variables
 ###########################################################################################
 
+$scriptSavePath = "C:\Program Files\4net\EndpointManager\Program\DesktopInfo"
+$scriptSavePathName = "DesktopInfo.ps1"
+$scriptPath = "$scriptSavePath\$scriptSavePathName"
 New-item -itemtype directory -force -path "$Path_4netIntune\Program\DesktopInfo"
 Invoke-WebRequest -Uri "$url/DesktopInfo64.exe" -OutFile "$output\DesktopInfo64.exe"
 Invoke-WebRequest -Uri "$url/hostname.ini" -OutFile "$output\hostname.ini"
