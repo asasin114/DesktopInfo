@@ -1,14 +1,19 @@
 $PackageName = "DesktopInfo"
-$Description = "Zeigt den Hostname auf dem Desktop, unabhängig vom Hintergrund."
+$Description = "Application to show computer name and relevant support info on Desktop."
 
 $Path_4netIntune = "$Env:Programfiles\4net\EndpointManager"
 Start-Transcript -Path "$Path_4netIntune\Log\$PackageName-install.log" -Force
 
-#Bestehenden Task beenden
+###########################################################################################
+# Kill existing task
+###########################################################################################
+
 taskkill /IM DesktopInfo64.exe /F
+
 ###########################################################################################
-# Initial Setup und Variabeln
+# Initial Setup and Variables
 ###########################################################################################
+
 $scriptSavePath = "C:\Program Files\4net\EndpointManager\Program\DesktopInfo"
 $scriptSavePathName = "DesktopInfo.ps1"
 $scriptPath = "$scriptSavePath\$scriptSavePathName"
@@ -54,10 +59,16 @@ $schtaskDescription = $Description
 
 $trigger = New-ScheduledTaskTrigger -AtLogOn
 
+###########################################################################################
 #Execute task in users context
+###########################################################################################
+
 $principal= New-ScheduledTaskPrincipal -GroupId "S-1-5-32-545" -Id "Author"
 
+###########################################################################################
 #call the vbscript helper and pass the PosH script as argument
+###########################################################################################
+
 $action = New-ScheduledTaskAction -Execute $wscriptPath -Argument "`"$dummyScriptPath`" `"$scriptPath`""
 
 $settings= New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
