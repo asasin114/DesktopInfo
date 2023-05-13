@@ -4,6 +4,10 @@ $Description = "Application to show computer name and relevant support info on D
 $url = "https://github.com/asasin114/DesktopInfo/raw/main/"
 $output = "C:\Program Files\4net\EndpointManager\Program\DesktopInfo"
 $Path_4netIntune = "$Env:Programfiles\4net\EndpointManager"
+$scriptSavePath = "C:\Program Files\4net\EndpointManager\Program\DesktopInfo"
+$scriptSavePathName = "DesktopInfo.ps1"
+$scriptPath = "$scriptSavePath\$scriptSavePathName"
+
 Start-Transcript -Path "$Path_4netIntune\Log\$PackageName-install.log" -Force
 
 ###########################################################################################
@@ -16,9 +20,6 @@ taskkill /IM DesktopInfo64.exe /F
 # Initial Setup and Variables
 ###########################################################################################
 
-$scriptSavePath = "C:\Program Files\4net\EndpointManager\Program\DesktopInfo"
-$scriptSavePathName = "DesktopInfo.ps1"
-$scriptPath = "$scriptSavePath\$scriptSavePathName"
 New-item -itemtype directory -force -path "$Path_4netIntune\Program\DesktopInfo"
 Invoke-WebRequest -Uri "$url/DesktopInfo64.exe" -OutFile "$output\DesktopInfo64.exe"
 Invoke-WebRequest -Uri "$url/hostname.ini" -OutFile "$output\hostname.ini"
@@ -45,11 +46,8 @@ End If
 "
 
 $scriptSavePathName = "$PackageName-VBSHelper.vbs"
-
 $dummyScriptPath = $(Join-Path -Path $scriptSavePath -ChildPath $scriptSavePathName)
-
 $vbsDummyScript | Out-File -FilePath $dummyScriptPath -Force
-
 $wscriptPath = Join-Path $env:SystemRoot -ChildPath "System32\wscript.exe"
 
 ###########################################################################################
