@@ -1,6 +1,7 @@
 $PackageName = "DesktopInfo"
 $Description = "Application to show computer name and relevant support info on Desktop."
 
+$deviceModel = (Get-WmiObject -Class Win32_ComputerSystem).Model
 $url = "https://github.com/asasin114/DesktopInfo/raw/main/"
 $output = "C:\Program Files\4net\EndpointManager\Program\DesktopInfo"
 $Path_4netIntune = "$Env:Programfiles\4net\EndpointManager"
@@ -24,6 +25,17 @@ New-item -itemtype directory -force -path "$Path_4netIntune\Program\DesktopInfo"
 Invoke-WebRequest -Uri "$url/DesktopInfo64.exe" -OutFile "$output\DesktopInfo64.exe"
 Invoke-WebRequest -Uri "$url/hostname.ini" -OutFile "$output\hostname.ini"
 Invoke-WebRequest -Uri "$url/DesktopInfo.ps1" -OutFile "$output\DesktopInfo.ps1"
+
+###########################################################################################
+# Setup config file based on device type
+###########################################################################################
+
+if ($deviceModel -like '*Surface*') {
+	Invoke-WebRequest -Uri "$url/hostname-surface.ini" -OutFile "$output\hostname.ini"
+}
+else {
+	Invoke-WebRequest -Uri "$url/hostname.ini" -OutFile "$output\hostname.ini"
+}
 
 ###########################################################################################
 # Create dummy vbscript to hide PowerShell Window popping up at logon
