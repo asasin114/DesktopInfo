@@ -23,7 +23,6 @@ taskkill /IM DesktopInfo64.exe /F
 
 New-item -itemtype directory -force -path "$Path_4netIntune\Program\DesktopInfo"
 Invoke-WebRequest -Uri "$url/DesktopInfo64.exe" -OutFile "$output\DesktopInfo64.exe"
-Invoke-WebRequest -Uri "$url/hostname.ini" -OutFile "$output\hostname.ini"
 Invoke-WebRequest -Uri "$url/DesktopInfo.ps1" -OutFile "$output\DesktopInfo.ps1"
 
 ###########################################################################################
