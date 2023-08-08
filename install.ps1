@@ -2,7 +2,7 @@ $PackageName = "DesktopInfo"
 $Description = "Application to show computer name and relevant support info on Desktop."
 
 $deviceModel = (Get-WmiObject -Class Win32_ComputerSystem).Model
-$url = "https://github.com/asasin114/DesktopInfo/raw/main/"
+$url = "https://github.com/asasin114/DesktopInfo/raw/main"
 $output = "C:\Program Files\4net\EndpointManager\Program\DesktopInfo"
 $Path_4netIntune = "$Env:Programfiles\4net\EndpointManager"
 $scriptSavePath = "C:\Program Files\4net\EndpointManager\Program\DesktopInfo"
